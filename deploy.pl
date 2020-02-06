@@ -10,4 +10,5 @@ git reset --hard > /dev/null
 
 git pull https://github.com/MarkTyurin/Referal_system.git > /dev/null
 
+chmod -R 755 /var/www/domains/m.refferal.qzo.su
  
