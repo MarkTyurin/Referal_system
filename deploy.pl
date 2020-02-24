@@ -1,8 +1,7 @@
 #!/bin/bash
 
-echo "Content-type: text/plain\n";
+echo -e "Content-type: text/plain\n";
 
-echo '';
 
 cd /var/www/domains/m.refferal.qzo.su/ || exit > /dev/null
 

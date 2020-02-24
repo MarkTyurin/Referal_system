@@ -18,7 +18,7 @@ class Referal extends  _MainModel {
     }
 
 
-    public function adding()
+     public function adding()
     {   $params = array('nickname', 'referal_link','level_id','parent_id','project_id');
         foreach ( $params as  $value) {
             if(!self::is_var($value) )
@@ -27,7 +27,8 @@ class Referal extends  _MainModel {
                 return;
             }
         }
-        self::table("referals")->add(array("name" => self::$params_url['name'], "image" => self::$params_url['image'] ))->send();
+        self::table("referals")->add(array( "nickname" => self::$params_url['nickname'], "referal_link" => self::$params_url['referal_link'], "level_id" => self::$params_url['level_id'],
+            "parent_id" => self::$params_url['parent_id'], "project_id" => self::$params_url['project_id']))->send();
     }
 
     public function editing()
