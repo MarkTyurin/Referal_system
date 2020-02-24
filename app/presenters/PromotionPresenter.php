@@ -7,7 +7,7 @@
  * branch b1
  */
 
-class ProjectPresenter extends MainPresenter {
+class PromotionPresenter extends MainPresenter {
 
     public static $isSecurity = false;
 
@@ -17,12 +17,11 @@ class ProjectPresenter extends MainPresenter {
     public function ruLableTable(){ $this->renderLabel('rus', 'labelLayoutTable'); }
 
 
-
-    public function add(){ echo (new Project())->adding(); }
-    public function edit(){ echo (new Project())->editing(); }
-    public function deletee(){ echo (new Project())->deleting(); }
-    public function getListProject()	{echo (new Project())->getListProject();}
-    public function searchProject()	{echo (new Project())->searchProject();}
+    public function add(){ echo (new Promotion())->adding(); }
+    public function edit(){ echo (new Promotion())->editing(); }
+    public function deletee(){ echo (new Promotion())->deleting(); }
+    public function getListProject()	{echo (new Promotion())->getListPromotions();}
+    public function searchProject()	{echo (new Promotion())->searchPromotion();}
 
 
     //public function table(){ $this->render(["title" => "table", "type" => "widgets"]); }

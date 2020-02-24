@@ -15,16 +15,16 @@ class UserPresenter extends MainPresenter {
 
 	/* labels */
 	public function ruLableTable(){ $this->renderLabel('rus', 'labelLayoutTable'); }
-	
-	
-	public function getListUser(){ echo (new User())->getListUser(); }
-	public function add(){ echo (new User())->add(); }
-	public function edit(){ echo (new User())->edit(); }
-	public function deletee(){ echo (new User())->deletee(); }
-	public function getAll()	{echo (new User())->getAll();} 
-	public function get()	{echo (new User())->get();} 
 
-	//public function table(){ $this->render(["title" => "table", "type" => "widgets"]); }
+
+    public function add(){ echo (new User())->adding(); }
+    public function edit(){ echo (new User())->editing(); }
+    public function deletee(){ echo (new User())->deleting(); }
+    public function getListProject()	{echo (new User())->getListUsers();}
+    public function searchProject()	{echo (new User())->searchUser();}
+
+
+    //public function table(){ $this->render(["title" => "table", "type" => "widgets"]); }
 
 	//public function hello(){ $this->render(["title" => "hello", "type" => "widgets"]); }
 

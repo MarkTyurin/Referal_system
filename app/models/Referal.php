@@ -1,6 +1,6 @@
 <?php
 
-class Project extends  _MainModel {
+class Referal extends  _MainModel {
 
 
     public function checkedInt($key, $default = 0, $arr = null) {
@@ -19,7 +19,7 @@ class Project extends  _MainModel {
 
 
     public function adding()
-    {   $params = array('name', 'image','user_id','description','is_blocked');
+    {   $params = array('nickname', 'referal_link','level_id','parent_id','project_id');
         foreach ( $params as  $value) {
             if(!self::is_var($value) )
             {
@@ -27,12 +27,12 @@ class Project extends  _MainModel {
                 return;
             }
         }
-        self::table("projects")->add(array("name" => self::$params_url['name'], "image" => self::$params_url['image'] ))->send();
+        self::table("referals")->add(array("name" => self::$params_url['name'], "image" => self::$params_url['image'] ))->send();
     }
 
     public function editing()
     {
-        $params = array('name', 'image','user_id','description','is_blocked', 'id');
+        $params = array('nickname', 'referal_link','level_id','parent_id','project_id','id');
         foreach ( $params as  $value) {
             if(!self::is_var($value) )
             {
@@ -45,8 +45,8 @@ class Project extends  _MainModel {
             self::viewJSON(array('error' => array("text" => "invalid type of arg (id must be int)")));
             return;
         }
-        self::table("projects")->edit(array( "name" => self::$params_url['name'], "image" => self::$params_url['image'], "is_blocked" => self::$params_url['is_blocked'],
-            "user_id" => self::$params_url['user_id'], "description" => self::$params_url['description']),array("id" => self::$params_url['id']))->send();
+        self::table("referals")->edit(array( "nickname" => self::$params_url['nickname'], "referal_link" => self::$params_url['referal_link'], "level_id" => self::$params_url['level_id'],
+            "parent_id" => self::$params_url['parent_id'], "project_id" => self::$params_url['project_id']),array("id" => self::$params_url['id']))->send();
     }
 
 
@@ -62,14 +62,14 @@ class Project extends  _MainModel {
             self::viewJSON(array('error' => array("Error" => "invalid type of arg (id must be int)")));
             return;
         }
-           self::table("projects")->delete(array("id" => self::$params_url['id']))->send();
+        self::table("referals")->delete(array("id" => self::$params_url['id']))->send();
     }
 
-    public function searchProject() {
-        $result = self::table('projects')->get();
+    public function searchReferal() {
+        $result = self::table('referals')->get();
 
-        if (self::is_var('name'))
-            $result->search(array('name' => self::$params_url['name']));
+        if (self::is_var('nickname'))
+            $result->search(array('nickname' => self::$params_url['nickname']));
 
         if (self::is_var('filter_value') && self::is_var('filter_field'))
             $result->filter(array(self::$params_url['filter_field'] => self::$params_url['filter_value']));
@@ -80,8 +80,8 @@ class Project extends  _MainModel {
 
         self::viewJSON($result->send());
     }
-    public function getListProject(){
-        $result = self::table('projects')->get(array('name'));
+    public function getListReferals(){
+        $result = self::table('referals')->get(array('nickname'));
 
         $page = $this->checkedInt('page', 1);
         $count = $this->checkedInt('count', 10);

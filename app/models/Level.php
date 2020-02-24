@@ -1,6 +1,6 @@
 <?php
 
-class Project extends  _MainModel {
+class Level extends  _MainModel {
 
 
     public function checkedInt($key, $default = 0, $arr = null) {
@@ -19,7 +19,7 @@ class Project extends  _MainModel {
 
 
     public function adding()
-    {   $params = array('name', 'image','user_id','description','is_blocked');
+    {   $params = array('project_id', 'description','name');
         foreach ( $params as  $value) {
             if(!self::is_var($value) )
             {
@@ -27,26 +27,27 @@ class Project extends  _MainModel {
                 return;
             }
         }
-        self::table("projects")->add(array("name" => self::$params_url['name'], "image" => self::$params_url['image'] ))->send();
+        self::table("levels")->add(array("project_id" => self::$params_url['project_id'], "description" => self::$params_url['description'],
+            "name" => self::$params_url['name']))->send();
     }
 
     public function editing()
     {
-        $params = array('name', 'image','user_id','description','is_blocked', 'id');
+        $params = array('project_id', 'description','name', 'id');
         foreach ( $params as  $value) {
             if(!self::is_var($value) )
             {
-                self::viewJSON(array('Error' =>  "key  $value do not found"));
+                self::viewJSON(array('Error!' =>  "key  $value do not found"));
                 return;
             }
         }
         if(!$this->checkedInt('id'))
         {
-            self::viewJSON(array('error' => array("text" => "invalid type of arg (id must be int)")));
+            self::viewJSON(array('error' => array("Error!" => "invalid type of arg (id must be int)")));
             return;
         }
-        self::table("projects")->edit(array( "name" => self::$params_url['name'], "image" => self::$params_url['image'], "is_blocked" => self::$params_url['is_blocked'],
-            "user_id" => self::$params_url['user_id'], "description" => self::$params_url['description']),array("id" => self::$params_url['id']))->send();
+        self::table("levels")->edit(array("project_id" => self::$params_url['project_id'], "description" => self::$params_url['description'],
+            "name" => self::$params_url['name']), array("id" => self::$params_url['id']))->send();
     }
 
 
@@ -62,11 +63,11 @@ class Project extends  _MainModel {
             self::viewJSON(array('error' => array("Error" => "invalid type of arg (id must be int)")));
             return;
         }
-           self::table("projects")->delete(array("id" => self::$params_url['id']))->send();
+        self::table("levels")->delete(array("id" => self::$params_url['id']))->send();
     }
 
-    public function searchProject() {
-        $result = self::table('projects')->get();
+    public function searchLevel() {
+        $result = self::table('levels')->get();
 
         if (self::is_var('name'))
             $result->search(array('name' => self::$params_url['name']));
@@ -80,8 +81,8 @@ class Project extends  _MainModel {
 
         self::viewJSON($result->send());
     }
-    public function getListProject(){
-        $result = self::table('projects')->get(array('name'));
+    public function getListLevels(){
+        $result = self::table('levels')->get(array('id'));
 
         $page = $this->checkedInt('page', 1);
         $count = $this->checkedInt('count', 10);

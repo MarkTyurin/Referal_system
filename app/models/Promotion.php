@@ -1,6 +1,6 @@
 <?php
 
-class Project extends  _MainModel {
+class Promotion extends  _MainModel {
 
 
     public function checkedInt($key, $default = 0, $arr = null) {
@@ -19,7 +19,7 @@ class Project extends  _MainModel {
 
 
     public function adding()
-    {   $params = array('name', 'image','user_id','description','is_blocked');
+    {   $params = array('reason_id', 'referal_id', 'sum_of_money','date_of_awarding');
         foreach ( $params as  $value) {
             if(!self::is_var($value) )
             {
@@ -27,26 +27,27 @@ class Project extends  _MainModel {
                 return;
             }
         }
-        self::table("projects")->add(array("name" => self::$params_url['name'], "image" => self::$params_url['image'] ))->send();
+        self::table("promotions")->add(array("reason_id" => self::$params_url['reason_id'], "referal_id" => self::$params_url['referal_id'],
+            "sum_of_money" => self::$params_url['sum_of_money'] , "date_of_awarding" => self::$params_url['date_of_awarding']))->send();
     }
 
     public function editing()
     {
-        $params = array('name', 'image','user_id','description','is_blocked', 'id');
+        $params = array('reason_id', 'referal_id', 'sum_of_money','date_of_awarding', 'id');
         foreach ( $params as  $value) {
             if(!self::is_var($value) )
             {
-                self::viewJSON(array('Error' =>  "key  $value do not found"));
+                self::viewJSON(array('Error!' =>  "key  $value do not found"));
                 return;
             }
         }
         if(!$this->checkedInt('id'))
         {
-            self::viewJSON(array('error' => array("text" => "invalid type of arg (id must be int)")));
+            self::viewJSON(array('error' => array("Error!" => "invalid type of arg (id must be int)")));
             return;
         }
-        self::table("projects")->edit(array( "name" => self::$params_url['name'], "image" => self::$params_url['image'], "is_blocked" => self::$params_url['is_blocked'],
-            "user_id" => self::$params_url['user_id'], "description" => self::$params_url['description']),array("id" => self::$params_url['id']))->send();
+        self::table("promotions")->edit(array("reason_id" => self::$params_url['reason_id'], "referal_id" => self::$params_url['referal_id'],
+            "sum_of_money" => self::$params_url['sum_of_money'] , "date_of_awarding" => self::$params_url['date_of_awarding']), array("id" => self::$params_url['id']))->send();
     }
 
 
@@ -62,14 +63,14 @@ class Project extends  _MainModel {
             self::viewJSON(array('error' => array("Error" => "invalid type of arg (id must be int)")));
             return;
         }
-           self::table("projects")->delete(array("id" => self::$params_url['id']))->send();
+        self::table("promotions")->delete(array("id" => self::$params_url['id']))->send();
     }
 
-    public function searchProject() {
-        $result = self::table('projects')->get();
+    public function searchPromotion() {
+        $result = self::table('promotions')->get();
 
-        if (self::is_var('name'))
-            $result->search(array('name' => self::$params_url['name']));
+        if (self::is_var('date_of_awarding'))
+            $result->search(array('date_of_awarding' => self::$params_url['date_of_awarding']));
 
         if (self::is_var('filter_value') && self::is_var('filter_field'))
             $result->filter(array(self::$params_url['filter_field'] => self::$params_url['filter_value']));
@@ -80,8 +81,8 @@ class Project extends  _MainModel {
 
         self::viewJSON($result->send());
     }
-    public function getListProject(){
-        $result = self::table('projects')->get(array('name'));
+    public function getListPromotions(){
+        $result = self::table('promotions')->get(array('id'));
 
         $page = $this->checkedInt('page', 1);
         $count = $this->checkedInt('count', 10);

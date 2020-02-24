@@ -7,7 +7,7 @@ class UsersTokens {
 
         if( !empty($_COOKIE['security_key']) ) {
             
-            $result = MainModel::table("users_security_key")->get(array('id_user'))->filter(array('security_key' => $_COOKIE['security_key']))->send();
+            $result = _MainModel::table("users_security_key")->get(array('id_user'))->filter(array('security_key' => $_COOKIE['security_key']))->send();
             
             if( !empty($result[0]['id_user']) ){
                

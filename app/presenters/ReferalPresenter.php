@@ -7,7 +7,7 @@
  * branch b1
  */
 
-class ProjectPresenter extends MainPresenter {
+class ReferalPresenter extends MainPresenter {
 
     public static $isSecurity = false;
 
@@ -18,11 +18,11 @@ class ProjectPresenter extends MainPresenter {
 
 
 
-    public function add(){ echo (new Project())->adding(); }
-    public function edit(){ echo (new Project())->editing(); }
-    public function deletee(){ echo (new Project())->deleting(); }
-    public function getListProject()	{echo (new Project())->getListProject();}
-    public function searchProject()	{echo (new Project())->searchProject();}
+    public function add(){ echo (new Referal())->adding(); }
+    public function edit(){ echo (new Referal())->editing(); }
+    public function deletee(){ echo (new Referal())->deleting(); }
+    public function getListReferals()	{echo (new Referal())->getListReferals();}
+    public function searchReferal()	{echo (new Referal())->searchReferal();}
 
 
     //public function table(){ $this->render(["title" => "table", "type" => "widgets"]); }
